@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 print "\t>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>+\n";
 print "\t>               Adamastor v1.1               |\n";
-print "\t>           Coded by m4dd0x 2014             +\n";
+print "\t>           Coded by mrX 2014             +\n";
 print "\t>       ============================         |\n";
 print "\t>                 ( .) (. )                  +\n";
 print "\t>   http://www.des-governados.blogspot.com   |\n";
