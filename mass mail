@@ -40,7 +40,7 @@ print <<print;
                             `~OOOOO~'   by m4dd0x 2015
 
 print
-print "[!] MASS EMAIL v1.0 | Exclusivo para o Funduntu | irssi\@hotmail.com \n";
+print "[!] MASS EMAIL v1.0 | Exclusivo para o Funduntu | Coded by MrX \n";
 # Primeira versão 20 Novembro de 2015 #
 
 print "[!] Insira o arquivo TXT com os endereços de email\n Arquivo: ";
