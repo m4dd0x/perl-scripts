@@ -1,0 +1,86 @@
+#!/usr/bin/perl
+
+use Net::SMTP::TLS;
+
+
+# CONFIGURAÇÕES BÁSICAS #
+
+# Autenticação no servidor SMTP
+my $servidor="";
+my $porta="";
+my $user='';
+my $pass='';
+
+#Dados do sender
+#my $destino=''; # caso não queira usar uma lista
+my $assunto="";
+my $email='';
+
+print <<print;
+ 	
+
+      _                      _______                      _
+   _dMMMb._              .adOOOOOOOOOba.              _,dMMMb_
+  dP'  ~YMMb            dOOOOOOOOOOOOOOOb            aMMP~  `Yb
+  V      ~"Mb          dOOOOOOOOOOOOOOOOOb          dM"~      V
+           `Mb.       dOOOOOOOOOOOOOOOOOOOb       ,dM'
+            `YMb._   |OOOOOOOOOOOOOOOOOOOOO|   _,dMP'
+       __     `YMMM| OP'~"YOOOOOOOOOOOP"~`YO |MMMP'     __
+     ,dMMMb.     ~~' OO     `YOOOOOP'     OO `~~     ,dMMMb.
+  _,dP~  `YMba_      OOb      `OOO'      dOO      _aMMP'  ~Yb._
+ <MMP'     `~YMMa_   YOOo   @  OOO  @   oOOP   _adMP~'      `YMM>
+              `YMMMM\`OOOo     OOO     oOOO'/MMMMP'
+      ,aa.     `~YMMb `OOOb._,dOOOb._,dOOO'dMMP~'       ,aa.
+    ,dMYYMba._         `OOOOOOOOOOOOOOOOO'          _,adMYYMb.
+   ,MP'   `YMMba._      OOOOOOOOOOOOOOOOO       _,adMMP'   `YM.
+   MP'        ~YMMMba._ YOOOOPVVVVVYOOOOP  _,adMMMMP~       `YM
+   YMb           ~YMMMM\`OOOOI`````IOOOOO'/MMMMP~           dMP
+    `Mb.           `YMMMb`OOOI,,,,,IOOOO'dMMMP'           ,dM'
+      `'                  `OObNNNNNdOO'                   `'
+                            `~OOOOO~'   by m4dd0x 2015
+
+print
+print "[!] MASS EMAIL v1.0 | Exclusivo para o Funduntu | irssi\@hotmail.com \n";
+# Primeira versão 20 Novembro de 2015 #
+
+print "[!] Insira o arquivo TXT com os endereços de email\n Arquivo: ";
+$arquivo = <stdin>;
+open(EMAIL,"< $arquivo") or die "FILE NOT FOUND!\n";
+chomp(my @destino = <EMAIL>);
+
+#Conexão com o servidor
+my $smtp = new Net::SMTP::TLS("$servidor",
+   Port    => $porta,
+   User    => "$user",
+   Password=> "$pass",
+   Timeout => 5) || die "[!] Erro ao se conectar ou autenticar com o servidor: $servidor\n";
+
+
+# PEGANDO ENDEREÇOS NO ARQUIVO INFORMADO #
+foreach my $destino (sort @destino){
+
+$smtp->mail("$email");
+
+my @destinatario = ("$destino");
+$smtp->recipient(@destinatario);
+
+# DADOS A SEREM ENVIADOS #
+
+$smtp->data();
+$smtp->datasend("To: $destino\n");
+$smtp->datasend("From: \n");
+$smtp->datasend("Content-Type: text/html \n");
+$smtp->datasend("Subject: $assunto");
+$smtp->datasend("\n");
+$smtp->datasend("
+
+<!-- CONTEUDO DA MENSAGEM -->
+
+");
+
+$smtp->datasend("\n");
+print "\t[+] Enviado para: \t\t\t\ $destino\n";
+$smtp->dataend();
+}
+$smtp->quit;
+print "[!] Fim\n";
